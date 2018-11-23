@@ -1,0 +1,36 @@
+{
+  "name": "@sphericalelephant/senodeconf",
+  "version": "1.2.2",
+  "description": "A simple nconf wrapper that supports multiple stages (environments via NODE_ENV) and provides sane configuration file lookups on *nix systems.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint .",
+    "coverage": "istanbul cover _mocha -- -R spec",
+    "test-ci": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SphericalElephant/senodeconf.git"
+  },
+  "engine": {
+    "node": ">=4"
+  },
+  "keywords": [
+    "nconf",
+    "configuration"
+  ],
+  "author": "Patrick Sturm <p.sturm@sphericalelephant.com>",
+  "license": "MIT",
+  "dependencies": {
+    "nconf": "^0.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "coveralls": "^3.0.2",
+    "eslint-config-loopback": "^12.1.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^5.2.0",
+    "rewire": "^4.0.1"
+  }
+}
