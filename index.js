@@ -38,10 +38,11 @@ const getConfigPath = (type, name, env, opts) => {
   }
 };
 
-const obtainConfigObject = (globalPath, userPath, localPath) => {
+const obtainConfigObject = (globalPath, userPath, localPath, opts) => {
+  opts = opts || {};
   nconf
     .argv()
-    .env()
+    .env({separator: opts.envSeparator || '_'})
     .file('local', localPath)
     .file('user', userPath)
     .file('global', globalPath);
@@ -51,6 +52,6 @@ const obtainConfigObject = (globalPath, userPath, localPath) => {
 module.exports = (name, opts) => {
   opts = opts || {};
   const env = process.env.NODE_ENV || opts.defaultEnv || 'development';
-  return obtainConfigObject(...['global', 'user', 'local'].map(type => getConfigPath(type, name, env, opts)));
+  return obtainConfigObject(...['global', 'user', 'local'].map(type => getConfigPath(type, name, env, opts)), opts);
 };
 

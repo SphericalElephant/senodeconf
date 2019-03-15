@@ -47,7 +47,9 @@ module.exports = require('senodeconfig')('my-app', {
   // careful: defaultEnv must be an allowedEnv
   defaultEnv: 'environment',
   // allows adjusting the config file name, %%STAGE%% must be used exacly once, as it is substituted
-  configFileNameTemplate: '%%STAGE%%_custom_config_name.json'
+  configFileNameTemplate: '%%STAGE%%_custom_config_name.json',
+  // allows setting a custom env variable separator, default is "_"
+  envSeparator: '__'
 });
 ```
 

@@ -4,6 +4,7 @@
 
 const expect = require('chai').expect;
 const rewire = require('rewire');
+const sinon = require('sinon');
 const path = require('path');
 
 const senodeconf = require('../index');
@@ -85,6 +86,44 @@ describe('senodeconf', () => {
     expect(getConfigPath('global', 'myprogram', 'production', {
       configFileNameTemplate: '%%STAGE%%_WAT.json'
     })).to.equal('/etc/myprogram/production_WAT.json');
+    done();
+  });
+
+  it('should use the default env separator if no other has been specified', done => {
+    const opts = {
+
+    }
+    const oldNconf = _senodeconf.__get__('nconf');
+    const nconfSpy = {
+      argv: sinon.stub().returnsThis(),
+      env: sinon.stub().returnsThis(),
+      file: sinon.stub().returnsThis()
+    }
+
+    _senodeconf.__set__('nconf', nconfSpy);
+    obtainConfigObject(...['global', 'user', 'local'].map(type => getConfigPath('local', 'name', 'development', opts)), opts);
+    expect(nconfSpy.env.calledWith({separator: '_'})).to.be.true
+    _senodeconf.__set__('nconf', oldNconf);
+
+    done();
+  });
+
+  it('should use the specified env separator', done => {
+    const opts = {
+      envSeparator: '___'
+    }
+    const oldNconf = _senodeconf.__get__('nconf');
+    const nconfSpy = {
+      argv: sinon.stub().returnsThis(),
+      env: sinon.stub().returnsThis(),
+      file: sinon.stub().returnsThis()
+    }
+
+    _senodeconf.__set__('nconf', nconfSpy);
+    obtainConfigObject(...['global', 'user', 'local'].map(type => getConfigPath('local', 'name', 'development', opts)), opts);
+    expect(nconfSpy.env.calledWith({separator: '___'})).to.be.true
+    _senodeconf.__set__('nconf', oldNconf);
+
     done();
   });
 });
