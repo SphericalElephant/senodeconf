@@ -1,6 +1,6 @@
 {
   "name": "@sphericalelephant/senodeconf",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A simple nconf wrapper that supports multiple stages (environments via NODE_ENV) and provides sane configuration file lookups on *nix systems.",
   "main": "index.js",
   "scripts": {
